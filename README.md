@@ -35,3 +35,30 @@ $ cd ~/your/project/directory
 $ git-export-zip
 > Exported to: <zip-filename-here>
 ```
+## Why not a shell script?
+I've been in what's commonly known as "shellscript hell".
+Basically I have a lot of shellscripts already, which
+depend on one another without any type-safety or simple
+way to do what is trivial in any other language.
+
+I actually love shellscripts, but I've found that
+writing utilities in Go is trivial, powerful, and
+safer.
+
+Bonus points, I can cross compile and send the
+binary to another machine. Even if that machine
+doesn't have bash, it will still work because it's
+a fully compiled executable!
+
+## Prefer Bash?
+If you prefer the raw command-line the equivalent
+shellscript is this:
+
+```
+#!/usr/bin/env bash
+set -ex
+current_date="$(date +%m-%d-%Y)"
+current_hash="$(git rev-parse HEAD | cut -c1-8)"
+project_name="$(basename "$(git rev-parse --show-toplevel)" | tr '[:upper:]' '[:lower:]' | tr ' ' '_')"
+git archive -o "../${project_name}-${current_date}-${current_hash}.zip" HEAD
+```
