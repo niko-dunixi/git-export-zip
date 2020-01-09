@@ -24,7 +24,6 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -46,14 +45,16 @@ var rootCmd = &cobra.Command{
 		gitRootDirCmd := exec.Command("git", "rev-parse", "--show-toplevel")
 		rootDirBytes, err := gitRootDirCmd.CombinedOutput()
 		if err != nil {
-			log.Fatalf("Could not determine current git hash: %v", err)
+			fmt.Printf("Could not determine current git hash: %v\n", err)
+			os.Exit(1)
 		}
 		gitBaseFilename := filepath.Base(strings.TrimSuffix(string(rootDirBytes), "\n"))
 		projectParentDirectory := path.Dir(string(rootDirBytes))
 		gitHeadHashCmd := exec.Command("git", "log", "--pretty=format:'%h'", "-n", "1")
 		hashBytes, err := gitHeadHashCmd.CombinedOutput()
 		if err != nil {
-			log.Fatalf("Could not determine HEAD commit hash: %v", err)
+			fmt.Printf("Could not determine HEAD commit hash: %v\n", err)
+			os.Exit(1)
 		}
 		hashValue := string(hashBytes[1 : len(hashBytes)-1])
 		formattedTimestamp := time.Now().UTC().Format("01-02-2006")
@@ -66,9 +67,10 @@ var rootCmd = &cobra.Command{
 		gitArchiveCmd.Stdin = os.Stdin
 		gitArchiveCmd.Stderr = os.Stderr
 		if err := gitArchiveCmd.Run(); err != nil {
-			log.Fatalf("Could not export archive: %v", err)
+			fmt.Printf("Could not export archive: %v\n", err)
+			os.Exit(1)
 		} else {
-			log.Printf("Exported to: %s", outputArchiveFilename)
+			fmt.Printf("Exported to: %s", outputArchiveFilename)
 		}
 	},
 }
