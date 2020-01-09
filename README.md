@@ -51,7 +51,7 @@ doesn't have bash, it will still work because it's
 a fully compiled executable!
 
 ## Prefer Bash?
-If you prefer the raw command-line the equivalent
+If you prefer the raw command-line, the equivalent
 shellscript is this:
 
 ```
