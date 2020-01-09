@@ -33,7 +33,7 @@ In your terminal
 ```bash
 $ cd ~/your/project/directory
 $ git-export-zip
-> Exported to: <zip-filename-here>
+> Exported to: <lower_snake_case_project_name>-<mm>-<dd>-<yyyy>-<commit hash>.zip
 ```
 ## Why not a shell script?
 I've been in what's commonly known as "shellscript hell".
