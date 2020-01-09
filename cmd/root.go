@@ -40,7 +40,12 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "git-export-zip",
 	Short: "Export the current git HEAD as a zip file",
-	Long:  `Above the `,
+	Long: `In the parent directory above the current git project,
+a new zip file is created with the UTC date at the time
+of action as well as the hash of the current commit. This
+helps ensure that the file exported is easy to differentiate
+from another zip. This is useful when iterating multiple days
+and/or across many commits`,
 	Run: func(cmd *cobra.Command, args []string) {
 		gitRootDirCmd := exec.Command("git", "rev-parse", "--show-toplevel")
 		rootDirBytes, err := gitRootDirCmd.CombinedOutput()
