@@ -60,5 +60,5 @@ set -ex
 current_date="$(date +%m-%d-%Y)"
 current_hash="$(git rev-parse HEAD | cut -c1-8)"
 project_name="$(basename "$(git rev-parse --show-toplevel)" | tr '[:upper:]' '[:lower:]' | tr ' ' '_')"
-git archive -o "../${project_name}-${current_date}-${current_hash}.zip" HEAD
+git archive -o "$(git rev-parse --show-toplevel)/../${project_name}-${current_date}-${current_hash}.zip" HEAD
 ```
