@@ -23,13 +23,15 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/iancoleman/strcase"
+	"github.com/spf13/cobra"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -63,7 +65,7 @@ and/or across many commits`,
 		}
 		hashValue := string(hashBytes[1 : len(hashBytes)-1])
 		formattedTimestamp := time.Now().UTC().Format("01-02-2006")
-		projectName := strings.ToLower(strings.ReplaceAll(gitBaseFilename, " ", "_"))
+		projectName := strcase.ToSnake(gitBaseFilename)
 		outputArchiveFilename := fmt.Sprintf("%s/%s-%s-%s.zip",
 			projectParentDirectory, projectName, formattedTimestamp, hashValue)
 

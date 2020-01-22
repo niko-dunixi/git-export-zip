@@ -3,6 +3,7 @@ module github.com/paul-nelson-baker/git-export-zip
 go 1.13
 
 require (
+	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
